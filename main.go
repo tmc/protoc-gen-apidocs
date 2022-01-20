@@ -46,9 +46,17 @@ type GenOpts struct {
 	TemplateDir string
 }
 
+var formatFileSuffixes = map[string]string{
+	"markdown": "md",
+}
+
 // generateFile generates a _ascii.pb.go file containing gRPC service definitions.
 func (o *GenOpts) generateFile(gen *protogen.Plugin, file *protogen.File) error {
-	filename := file.GeneratedFilenamePrefix + "." + o.Format
+	suffix, ok := formatFileSuffixes[o.Format]
+	if !ok {
+		suffix = o.Format
+	}
+	filename := file.GeneratedFilenamePrefix + "." + suffix
 	g := gen.NewGeneratedFile(filename, file.GoImportPath)
 	if err := o.renderTemplate(file, g); err != nil {
 		return fmt.Errorf("issue generating %v: %w", filename, err)
