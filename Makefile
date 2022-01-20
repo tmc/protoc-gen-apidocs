@@ -6,8 +6,8 @@ test: tmp/googleapis
 		-I tmp/googleapis \
 		-I testdata \
 		--apidocs_out=testdata/ \
-		--apidocs_opt=paths=source_relative \
-		testdata/example1/Vehicle.proto
+		--apidocs_opt=paths=source_relative,format=html \
+		testdata/example1/Booking.proto
 
 tmp/googleapis:
 	rm -rf tmp/googleapis tmp/protocolbuffers
