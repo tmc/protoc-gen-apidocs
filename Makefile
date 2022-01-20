@@ -5,9 +5,9 @@ test: tmp/googleapis
 		-I thirdparty \
 		-I tmp/googleapis \
 		-I testdata \
-		--apidocs_out=. \
+		--apidocs_out=testdata/ \
 		--apidocs_opt=paths=source_relative \
-		testdata/example1/*.proto
+		testdata/example1/Vehicle.proto
 
 tmp/googleapis:
 	rm -rf tmp/googleapis tmp/protocolbuffers
