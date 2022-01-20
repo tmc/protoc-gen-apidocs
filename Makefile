@@ -7,7 +7,7 @@ test: tmp/googleapis
 		-I testdata \
 		--apidocs_out=testdata/ \
 		--apidocs_opt=paths=source_relative \
-		testdata/example1/Vehicle.proto
+		testdata/example1/*.proto
 
 tmp/googleapis:
 	rm -rf tmp/googleapis tmp/protocolbuffers
