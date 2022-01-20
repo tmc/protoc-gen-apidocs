@@ -15,7 +15,7 @@ Service for handling vehicle bookings.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| BookVehicle | [Booking](#com-example-booking-Booking) | [BookingStatus](#com-example-booking-BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.  option (google.api.http) = {  |
+| BookVehicle | [Booking](#com-example-booking-Booking) | [BookingStatus](#com-example-booking-BookingStatus) | Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.   |
 | BookingUpdates | [BookingStatusID](#com-example-booking-BookingStatusID) | [BookingStatus](#com-example-booking-BookingStatus) stream | Used to subscribe to updates of the BookingStatus.   |
 
 
@@ -79,7 +79,7 @@ Represents the status of a vehicle booking.
 
 Represents the booking of a vehicle.
 //
-// Vehicles are some cool shit. But drive carefully!
+// Vehicles are quite fun. But drive carefully!
 
 
 
