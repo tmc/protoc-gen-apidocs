@@ -139,8 +139,8 @@ func (o *GenOpts) renderTemplate(file *protogen.File, g *protogen.GeneratedFile)
 	if err != nil {
 		return err
 	}
-	t := template.New("file.tpl").Funcs(o.templateFuncMap()).Funcs(sprig.HtmlFuncMap())
-	t, err = t.ParseFS(tFS, fmt.Sprintf("%v.tpl", o.Format))
+	t := template.New("file.tmpl").Funcs(o.templateFuncMap()).Funcs(sprig.HtmlFuncMap())
+	t, err = t.ParseFS(tFS, fmt.Sprintf("%v.tmpl", o.Format))
 	if err != nil {
 		return err
 	}
