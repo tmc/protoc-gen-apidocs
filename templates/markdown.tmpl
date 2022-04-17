@@ -39,11 +39,11 @@ description: API Specification for the {{ .Desc.Package }} package.
 {{if .Extensions}}
 <a name="{{.Desc.Path |base | anchor}}-extensions"></a>
 
-### File-level Extensions
-| Extension | Type | Base | Number | Description |
+### Extensions
+| Extension | Type | Extension Point | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 {{range .Extensions -}}
-  | {{.Desc.Name}} | {{.Desc.FullName}} | {{.Parent | message_type}} | {{.Desc.Number}} | {{ .Comments.Leading | description | nobr}} {{ .Comments.Trailing | description | nobr}} |
+  | {{.Desc.Name}} | {{.Desc.FullName}} | {{ .Extendee | message_type }} | {{.Desc.Number}} | {{ .Comments.Leading | description | nobr}} {{ .Comments.Trailing | description | nobr}} |
 {{end}}
 {{end}} <!-- end file-level extensions -->
 
