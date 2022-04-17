@@ -116,7 +116,8 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 			if strings.HasPrefix(val, "@exclude") {
 				return ""
 			}
-			return val
+			commentRe := regexp.MustCompile("\n// ?")
+			return commentRe.ReplaceAllString(val, "\n")
 		},
 		"p":    pFilter,
 		"para": paraFilter,

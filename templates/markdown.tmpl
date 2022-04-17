@@ -12,7 +12,11 @@ function and they are executed with the "template" function.
 Main output block
 ***************************************************************/}}
 {{define "output" -}}
-# {{ .Desc.Path |base }}
+
+---
+title: {{ .Desc.Package }}
+description: API Specification for the {{ .Desc.Package }} package.
+---
 
 <a name="{{.Desc.Path |base | anchor}}"></a><p align="right"><a href="#top">Top</a></p>
 

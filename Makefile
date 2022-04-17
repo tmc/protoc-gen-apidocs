@@ -9,6 +9,10 @@ test: tmp/googleapis
 		--apidocs_opt=paths=source_relative \
 		testdata/example1/*.proto
 
+.PHONY: install
+install:
+	go install
+
 tmp/googleapis:
 	rm -rf tmp/googleapis tmp/protocolbuffers
 	git clone --depth 1 https://github.com/googleapis/googleapis tmp/googleapis
