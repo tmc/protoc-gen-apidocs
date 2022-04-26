@@ -123,6 +123,13 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 				typ := anchor(fmt.Sprint(f.Message.Desc.FullName()))
 				return fmt.Sprintf(`{{< relref "%s#%s" >}}`, fn, typ)
 			}
+			if f.Enum != nil {
+				fn := fmt.Sprint(f.Enum.Desc.ParentFile().Path())
+				fn = filepath.Base(fn)
+				fn = strings.TrimSuffix(fn, filepath.Ext(fn))
+				typ := anchor(fmt.Sprint(f.Enum.Desc.FullName()))
+				return fmt.Sprintf(`{{< relref "%s#%s" >}}`, fn, typ)
+			}
 			return fmt.Sprintf(`#%s`, anchor(f.Desc.FullName()))
 		},
 		"description": func(s interface{}) string {

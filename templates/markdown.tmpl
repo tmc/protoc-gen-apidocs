@@ -84,8 +84,9 @@ Message template
 {{if .Fields}}
 | Field | Type | Description |
 | ----- | ---- | ----------- |
-{{range .Fields}}{{template "field" .}}{{end}}
-{{end}}
+{{range .Fields}}{{ if (not .Desc.ContainingOneof) }}{{template "field" .}}{{end}}{{end}}
+{{- end -}}
+{{range .Oneofs}}{{template "oneof" .}}{{end}}
 
 {{if .Extensions}}
 | Extension | Type | Base | Number | Description |
@@ -109,15 +110,23 @@ Message template
 Field template
 ***************************************************************/}}
 {{define "field" -}}
-  | {{.Desc.Name}} | 
+  | {{.Desc.Name}}{{ if .Desc.IsList }}[]{{ end }} | 
 {{- if (is_primitive .) -}}
-  {{ if .Desc.IsList }}repeated {{ end }}{{ field_type . }}
+ {{ field_type . }}
 {{- else -}}
-  [{{ .| field_type }}]({{ type_link . }})
+ [{{ .| field_type }}]({{ type_link . }})
 {{- end -}}
 | {{ .Comments.Leading | description | nobr}} {{ .Comments.Trailing | description | nobr }} |
 {{end}}
 
+{{/***************************************************************
+Oneof template
+This is kind of gross since GFM doesn't support colspan.
+***************************************************************/}}
+{{define "oneof" -}}
+|<tr><td colspan=2>Union field `{{ .Desc.Name }}`. {{ .Comments.Leading | description | nobr}} {{ .Comments.Trailing | description | nobr }} `{{ .Desc.Name }}` can be only one of the following:</td></tr>|
+{{range .Fields}}{{template "field" .}}{{end}}
+{{end}}
 
 {{/***************************************************************
 Enum template
