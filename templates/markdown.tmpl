@@ -111,9 +111,9 @@ Field template
 {{define "field" -}}
   | {{.Desc.Name}} | 
 {{- if (is_primitive .) -}}
-  {{ field_type . }}
+  {{ if .Desc.IsList }}repeated {{ end }}{{ field_type . }}
 {{- else -}}
-  [{{ .| field_type }}](#{{ full_field_type . | anchor }})
+  [{{ .| field_type }}]({{ type_link . }})
 {{- end -}}
 | {{ .Comments.Leading | description | nobr}} {{ .Comments.Trailing | description | nobr }} |
 {{end}}

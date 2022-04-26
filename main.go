@@ -4,11 +4,13 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	"html/template"
+	htmltemplate "html/template"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
+	"text/template"
 
 	"github.com/Masterminds/sprig"
 	"google.golang.org/protobuf/compiler/protogen"
@@ -72,11 +74,13 @@ func longName(d protoreflect.Descriptor) string {
 	return fmt.Sprint(d.Name())
 }
 
+func anchor(str interface{}) string {
+	return specialCharsPattern.ReplaceAllString(strings.ReplaceAll(fmt.Sprint(str), "/", "_"), "-")
+}
+
 func (o *GenOpts) templateFuncMap() template.FuncMap {
 	return map[string]interface{}{
-		"anchor": func(str interface{}) string {
-			return specialCharsPattern.ReplaceAllString(strings.ReplaceAll(fmt.Sprint(str), "/", "_"), "-")
-		},
+		"anchor":    anchor,
 		"long_name": longName,
 		"field_type": func(f *protogen.Field) string {
 			if f.Message != nil {
@@ -111,6 +115,16 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 		"full_message_type": func(f *protogen.Message) string {
 			return fmt.Sprint(f.Desc.FullName())
 		},
+		"type_link": func(f *protogen.Field) string {
+			if f.Message != nil {
+				fn := fmt.Sprint(f.Message.Desc.ParentFile().Path())
+				fn = filepath.Base(fn)
+				fn = strings.TrimSuffix(fn, filepath.Ext(fn))
+				typ := anchor(fmt.Sprint(f.Message.Desc.FullName()))
+				return fmt.Sprintf(`{{< relref "%s#%s" >}}`, fn, typ)
+			}
+			return fmt.Sprintf(`#%s`, anchor(f.Desc.FullName()))
+		},
 		"description": func(s interface{}) string {
 			val := strings.TrimLeft(fmt.Sprint(s), "*/\n ")
 			if strings.HasPrefix(val, "@exclude") {
@@ -140,7 +154,7 @@ func (o *GenOpts) renderTemplate(file *protogen.File, g *protogen.GeneratedFile)
 	if err != nil {
 		return err
 	}
-	t := template.New("file.tmpl").Funcs(o.templateFuncMap()).Funcs(sprig.HtmlFuncMap())
+	t := template.New("file.tmpl").Funcs(o.templateFuncMap()).Funcs(sprig.TxtFuncMap())
 	t, err = t.ParseFS(tFS, fmt.Sprintf("%v.tmpl", o.Format))
 	if err != nil {
 		return err
@@ -157,9 +171,9 @@ var (
 	specialCharsPattern = regexp.MustCompile(`[^a-zA-Z0-9_-]`)
 )
 
-func pFilter(content string) template.HTML {
+func pFilter(content string) htmltemplate.HTML {
 	paragraphs := paraPattern.Split(content, -1)
-	return template.HTML(fmt.Sprintf("<p>%s</p>", strings.Join(paragraphs, "</p><p>")))
+	return htmltemplate.HTML(fmt.Sprintf("<p>%s</p>", strings.Join(paragraphs, "</p><p>")))
 }
 
 func paraFilter(content string) string {
