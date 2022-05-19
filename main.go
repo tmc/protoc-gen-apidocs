@@ -115,8 +115,22 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 		"full_message_type": func(f *protogen.Message) string {
 			return fmt.Sprint(f.Desc.FullName())
 		},
-		"type_link": func(f *protogen.Field) string {
+		"is_google_type": func(f *protogen.Field) bool {
 			if f.Message != nil {
+				return strings.HasPrefix(string(f.Message.Desc.FullName()), "google.")
+			}
+			if f.Enum != nil {
+				return strings.HasPrefix(string(f.Enum.Desc.FullName()), "google.")
+			}
+			return false
+		},
+		"type_link": func(f *protogen.Field) string {
+			// exclude google types:
+
+			if f.Message != nil {
+				if strings.HasPrefix(string(f.Message.Desc.FullName()), "google.") {
+					return string(f.Message.Desc.FullName())
+				}
 				fn := fmt.Sprint(f.Message.Desc.ParentFile().Path())
 				fn = filepath.Base(fn)
 				fn = strings.TrimSuffix(fn, filepath.Ext(fn))

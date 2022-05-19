@@ -111,7 +111,7 @@ Field template
 ***************************************************************/}}
 {{define "field" -}}
   | {{.Desc.Name}}{{ if .Desc.IsList }}[]{{ end }} | 
-{{- if (is_primitive .) -}}
+{{- if (or (is_primitive .) (is_google_type .)) -}}
  {{ field_type . }}
 {{- else -}}
  [{{ .| field_type }}]({{ type_link . }})
