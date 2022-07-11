@@ -49,7 +49,8 @@ type GenOpts struct {
 }
 
 var formatFileSuffixes = map[string]string{
-	"markdown": "md",
+	"markdown":      "md",
+	"hugo-markdown": "md",
 }
 
 // generateFile generates a _ascii.pb.go file containing gRPC service definitions.
@@ -64,6 +65,19 @@ func (o *GenOpts) generateFile(gen *protogen.Plugin, file *protogen.File) error 
 		return fmt.Errorf("issue generating %v: %w", filename, err)
 	}
 	return nil
+}
+
+func (o *GenOpts) relPath(t1, t2 protoreflect.Descriptor) string {
+	path := ""
+	cpf := filepath.Base(fmt.Sprint(t1.ParentFile().Path()))
+	rpf := filepath.Base(fmt.Sprint(t2.ParentFile().Path()))
+	if cpf != rpf {
+		path, _ = filepath.Rel(cpf, rpf)
+		path = strings.TrimSuffix(path, filepath.Ext(path))
+		path = strings.TrimPrefix(path, ".")
+		path = fmt.Sprintf("%s.%s", path, formatFileSuffixes[o.Format])
+	}
+	return path
 }
 
 func longName(d protoreflect.Descriptor) string {
@@ -125,6 +139,22 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 			return false
 		},
 		"type_link": func(f *protogen.Field) string {
+			var t1, t2 protoreflect.Descriptor
+			t1 = f.Desc
+			if f.Message != nil {
+				t2 = f.Message.Desc
+			}
+			if f.Enum != nil {
+				t2 = f.Enum.Desc
+			}
+			if strings.HasPrefix(string(t2.FullName()), "google.") {
+				return string(t2.FullName())
+			}
+			fn := o.relPath(t1, t2)
+			typ := anchor(fmt.Sprint(t2.FullName()))
+			return fmt.Sprintf(`%s#%s`, fn, typ)
+		},
+		"type_link_hugo": func(f *protogen.Field) string {
 			// exclude google types:
 
 			if f.Message != nil {
