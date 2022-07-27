@@ -154,7 +154,7 @@ func (o *GenOpts) templateFuncMap() template.FuncMap {
 			typ := anchor(fmt.Sprint(t2.FullName()))
 			return fmt.Sprintf(`%s#%s`, fn, typ)
 		},
-		"type_link_hugo": func(f *protogen.Field) string {
+		"hugo_type_link": func(f *protogen.Field) string {
 			// exclude google types:
 
 			if f.Message != nil {
