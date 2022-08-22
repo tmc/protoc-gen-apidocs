@@ -21,6 +21,7 @@ func main() {
 	var flags flag.FlagSet
 	format := flags.String("format", "markdown", "Format to use")
 	templates := flags.String("templates", "", "Custom templates directory to use")
+	trimPrefix := flags.String("trimprefix", "", "If supplied, this prefix will be removed from generated file paths.")
 
 	opts := &protogen.Options{
 		ParamFunc: flags.Set,
@@ -29,6 +30,7 @@ func main() {
 		genOpts := GenOpts{
 			Format:      *format,
 			TemplateDir: *templates,
+			TrimPrefix:  *trimPrefix,
 		}
 		for _, f := range gen.Files {
 			if !f.Generate {
@@ -46,6 +48,7 @@ func main() {
 type GenOpts struct {
 	Format      string
 	TemplateDir string
+	TrimPrefix  string
 }
 
 var formatFileSuffixes = map[string]string{
@@ -60,6 +63,7 @@ func (o *GenOpts) generateFile(gen *protogen.Plugin, file *protogen.File) error 
 		suffix = o.Format
 	}
 	filename := file.GeneratedFilenamePrefix + "." + suffix
+	filename = strings.TrimPrefix(filename, o.TrimPrefix)
 	g := gen.NewGeneratedFile(filename, file.GoImportPath)
 	if err := o.renderTemplate(file, g); err != nil {
 		return fmt.Errorf("issue generating %v: %w", filename, err)
@@ -200,6 +204,7 @@ func (o *GenOpts) getTemplateFS() (fs.FS, error) {
 	tFS := os.DirFS(o.TemplateDir)
 	return fs.Sub(tFS, o.TemplateDir)
 }
+
 func (o *GenOpts) renderTemplate(file *protogen.File, g *protogen.GeneratedFile) error {
 	tFS, err := o.getTemplateFS()
 	if err != nil {
