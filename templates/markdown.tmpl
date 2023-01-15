@@ -86,7 +86,8 @@ Message template
 | ----- | ---- | ----------- |
 {{range .Fields}}{{ if (not .Desc.ContainingOneof) }}{{template "field" .}}{{end}}{{end}}
 {{- end -}}
-{{range .Oneofs}}{{template "oneof" .}}{{end}}
+
+{{range .Oneofs}}{{ if .Desc.IsSynthetic }}{{template "field" (index .Fields 0) }}{{else}}{{template "oneof" .}}{{end}}{{end}}
 
 {{if .Extensions}}
 | Extension | Type | Base | Number | Description |
@@ -110,7 +111,7 @@ Message template
 Field template
 ***************************************************************/}}
 {{define "field" -}}
-  | {{.Desc.Name}}{{ if .Desc.IsList }}[]{{ end }} | 
+  | {{.Desc.Name }}{{ if .Desc.IsList }}[]{{ end }}{{ if .Desc.HasOptionalKeyword }} (optional){{ end }} | 
 {{- if (or (is_primitive .) (is_google_type .)) -}}
  {{ field_type . }}
 {{- else -}}

@@ -22,9 +22,7 @@ description: API Specification for the com.example.proto3 package.
 | Field | Type | Description |
 | ----- | ---- | ----------- |
 | not_tracked |int32|   |
-|<tr><td colspan=2>Union field `_tracked`.   `_tracked` can be only one of the following:</td></tr>|
-| tracked |int32| Explicit presence   |
-
+| tracked (optional) |int32| Explicit presence   |
 
 
 
