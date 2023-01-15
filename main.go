@@ -15,6 +15,7 @@ import (
 	"github.com/Masterminds/sprig"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 func main() {
@@ -27,6 +28,7 @@ func main() {
 		ParamFunc: flags.Set,
 	}
 	opts.Run(func(gen *protogen.Plugin) error {
+		gen.SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 		genOpts := GenOpts{
 			Format:      *format,
 			TemplateDir: *templates,

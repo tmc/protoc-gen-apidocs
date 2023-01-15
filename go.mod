@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.1
 )
 
 require (

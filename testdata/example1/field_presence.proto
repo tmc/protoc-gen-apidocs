@@ -1,0 +1,12 @@
+// Encoding and show field presence.
+syntax = "proto3";
+
+package com.example.proto3;
+
+option go_package = "example.com/vehicleproto3";
+
+message MyMessage {
+  int32 not_tracked = 1;
+  // Explicit presence
+  optional int32 tracked = 2;
+}
