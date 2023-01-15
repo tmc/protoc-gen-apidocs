@@ -1,8 +1,11 @@
-# Booking.proto
+---
+title: com.example.booking
+description: API Specification for the com.example.booking package.
+---
 
-<a name="Booking-proto"></a><p align="right"><a href="#top">Top</a></p>
+<a name="booking-proto"></a><p align="right"><a href="#top">Top</a></p>
 
-
+<!-- begin services -->
 
 
 <a name="com-example-booking-BookingService"></a>
@@ -20,7 +23,7 @@ Service for handling vehicle bookings.
 
 
 
-
+<!-- begin services -->
 
 
 
@@ -40,10 +43,9 @@ Represents the booking status ID.
 
 
 
+ <!-- end nested messages -->
 
- 
-
- 
+ <!-- end nested enums -->
 
 
 
@@ -60,15 +62,14 @@ Represents the status of a vehicle booking.
 | Field | Type | Description |
 | ----- | ---- | ----------- |
 | id |int32|  Unique booking status ID.  |
-| description |string|  Booking status description. E.g. &#34;Active&#34;.  |
+| description |string|  Booking status description. E.g. "Active".  |
 
 
 
 
+ <!-- end nested messages -->
 
- 
-
- 
+ <!-- end nested enums -->
 
 
 
@@ -78,8 +79,8 @@ Represents the status of a vehicle booking.
 ### Booking
 
 Represents the booking of a vehicle.
-//
-// Vehicles are quite fun. But drive carefully!
+
+Vehicles are quite fun. But drive carefully!
 
 
 
@@ -96,10 +97,9 @@ Represents the booking of a vehicle.
 
 
 
+ <!-- end nested messages -->
 
- 
-
- 
+ <!-- end nested enums -->
 
 
 
@@ -116,16 +116,16 @@ An empty message for testing
 
 
 
- 
+ <!-- end nested messages -->
 
- 
-
-
- 
+ <!-- end nested enums -->
 
 
- 
+ <!-- end messages -->
 
+<!-- begin file-level enums -->
+ <!-- end file-level enums -->
 
- 
+<!-- begin file-level extensions -->
+ <!-- end file-level extensions -->
 

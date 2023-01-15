@@ -1,10 +1,13 @@
-# Vehicle.proto
+---
+title: com.example
+description: API Specification for the com.example package.
+---
 
-<a name="Vehicle-proto"></a><p align="right"><a href="#top">Top</a></p>
+<a name="vehicle-proto"></a><p align="right"><a href="#top">Top</a></p>
 
+<!-- begin services -->
 
-
-
+<!-- begin services -->
 
 
 
@@ -20,15 +23,14 @@ Represents a manufacturer of cars.
 | Field | Type | Description |
 | ----- | ---- | ----------- |
 | id |int32|  The unique manufacturer ID.  |
-| code |string|  A manufacturer code, e.g. &#34;DKL4P&#34;.  |
+| code |string|  A manufacturer code, e.g. "DKL4P".  |
 | details |string|  Manufacturer details (minimum orders et.c.).  |
 | category |[Manufacturer.Category](#com-example-Manufacturer-Category)| Manufacturer category.   |
 
 
 
 
-
- 
+ <!-- end nested messages -->
 
 
 
@@ -45,7 +47,7 @@ Manufacturer category. A manufacturer may be either inhouse or external.
 | CATEGORY_EXTERNAL | 1 |  The manufacturer is external.  |
 
 
- 
+ <!-- end nested enums -->
 
 
 
@@ -62,18 +64,17 @@ Represents a vehicle model.
 | Field | Type | Description |
 | ----- | ---- | ----------- |
 | id |string|  The unique model ID.  |
-| model_code |string|  The car model code, e.g. &#34;PZ003&#34;.  |
-| model_name |string|  The car model name, e.g. &#34;Z3&#34;.  |
+| model_code |string|  The car model code, e.g. "PZ003".  |
+| model_name |string|  The car model name, e.g. "Z3".  |
 | daily_hire_rate_dollars |sint32|  Dollars per day.  |
 | daily_hire_rate_cents |sint32|  Cents per day.  |
 
 
 
 
+ <!-- end nested messages -->
 
- 
-
- 
+ <!-- end nested enums -->
 
 
 
@@ -99,7 +100,6 @@ Represents a vehicle that can be hired.
 
 
 
-
 | Extension | Type | Base | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
 | series | Vehicle.series | Vehicle | 100 | Vehicle model series.   |
@@ -112,33 +112,32 @@ Represents a vehicle that can be hired.
 
 ### Category
 
-Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
+Represents a vehicle category. E.g. "Sedan" or "Truck".
 
 
 
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
-| code |string|  Category code. E.g. &#34;S&#34;.  |
-| description |string|  Category name. E.g. &#34;Sedan&#34;.  |
+| code |string|  Category code. E.g. "S".  |
+| description |string|  Category name. E.g. "Sedan".  |
 
 
 
 
+ <!-- end nested messages -->
 
- 
-
- 
-
-
- 
-
- 
+ <!-- end nested enums -->
 
 
- 
+ <!-- end nested messages -->
+
+ <!-- end nested enums -->
 
 
+ <!-- end messages -->
+
+<!-- begin file-level enums -->
 
 
 <a name="com-example-Coolness"></a>
@@ -153,16 +152,16 @@ Represents a vehicle category. E.g. &#34;Sedan&#34; or &#34;Truck&#34;.
 | COOLNESS_MAX | 1 |  The coolness is maximum.  |
 
 
- 
+ <!-- end file-level enums -->
 
+<!-- begin file-level extensions -->
 
+<a name="vehicle-proto-extensions"></a>
 
-<a name="Vehicle-proto-extensions"></a>
-
-### File-level Extensions
-| Extension | Type | Base | Number | Description |
+### Extensions
+| Extension | Type | Extension Point | Number | Description |
 | --------- | ---- | ---- | ------ | ----------- |
-| country | com.example.country | (none) | 100 | Manufacturer country.   |
+| country | com.example.country | Manufacturer | 100 | Manufacturer country.   |
 
- 
+ <!-- end file-level extensions -->
 
