@@ -12,15 +12,15 @@ built-in templating capabilties.
 
 This example shows a variety of protobuf features including extensions and nested messages.
 
-* [Output markdown](./testdata/example1/Vehicle.md)
-* [Source proto](./testdata/example1/Vehicle.proto)
+* [Output markdown](./testdata/example1/vehicle.md)
+* [Source proto](./testdata/example1/vehicle.proto)
 
 
 **Booking.proto example**
 
 This example is relatively simple but shows streaming rpc endpoints properly handled.
 
-* [Output markdown](./testdata/example1/Booking.md)
-* [Source proto](./testdata/example1/Booking.proto)
+* [Output markdown](./testdata/example1/booking.md)
+* [Source proto](./testdata/example1/booking.proto)
 
 
