@@ -32,6 +32,32 @@ description: API Specification for the com.example.proto3 package.
  <!-- end nested enums -->
 
 
+
+
+<a name="com-example-proto3-AnotherMessage"></a>
+
+### AnotherMessage
+
+
+
+
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| id |int32|   |
+|<tr><td colspan=2>Union field `payload`.   `payload` can be only one of the following:</td></tr>|
+| my_message |[MyMessage](#com-example-proto3-MyMessage)|   |
+| my_string |string|   |
+
+
+
+
+
+ <!-- end nested messages -->
+
+ <!-- end nested enums -->
+
+
  <!-- end messages -->
 
 <!-- begin file-level enums -->

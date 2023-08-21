@@ -10,3 +10,11 @@ message MyMessage {
   // Explicit presence
   optional int32 tracked = 2;
 }
+
+message AnotherMessage {
+  int32 id = 1;
+  oneof payload {
+    MyMessage my_message = 2;
+    string my_string = 3;
+  }
+}
